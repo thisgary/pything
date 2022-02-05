@@ -5,9 +5,9 @@ def eval_file(path: str, default: str = 'None'):
     p = Path(path)
     if p.exists(): 
         t = p.read_text()
-        if len(t) < 1: 
-            t = default
-    return eval(t)
+        if len(t) > 0: 
+            default = t
+    return eval(default)
 
 
 class fdict(dict):
