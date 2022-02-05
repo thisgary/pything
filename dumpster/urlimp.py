@@ -14,6 +14,6 @@ def import_url(url: str, *, path: str = 'modules', name: str = None):
     name = name or basename(url)
     _file = _path / (f'{name}.py')
     _file.write_text(script)
-    package = _path.replace('/', '.')
+    package = path.replace('/', '.')
     return import_module(f'.{name}', package)
 
