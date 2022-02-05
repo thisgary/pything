@@ -1,33 +1,29 @@
 from pathlib import Path
 
 
+def eval_file(path: str, default: str = 'None'):
+    p = Path(path)
+    if p.exists(): 
+        t = p.read_text()
+        if len(t) < 1: 
+            t = default
+    return eval(t)
+
+
 class fdict(dict):
-    def __init__(self, *args, **kwargs):
-        def keyword(k, v): return (kwargs.pop(k) if k in kwargs else v)
-        path = keyword('_path', '.dict')
-        init = keyword('_init', False)
-        self.__path__ = Path(path)
-        if self.__path__.exists():
-            _fdict = eval(self.__path__.read_text())
-            if init:
-                kwargs = _fdict
-            else:
-                kwargs.update(_fdict)
-        super(fdict, self).__init__(*args, **kwargs)
+    @staticmethod
+    def read(path: str) -> dict:
+        return fdict(eval_file(path), path=path) 
+
+    def __init__(self, mapping: dict = {}, *, 
+            path: str = 'fidct', init: bool = False, **kwargs):
+        if not init: 
+            d = eval_file(path, '{}')
+            kwargs.update(d)
+        super(fdict, self).__init__(mapping, **kwargs)
+        self.path = path
         self.write()
 
-    @staticmethod
-    def read(path: str = '.dict') -> dict:
-        _path = Path(path)
-        return _path.exists() and fdict(eval(_path.read_text()), _path=path)
-
     def write(self) -> None:
-        Path(self.__path__).write_text(str(self))
+        Path(self.path).write_text(str(self))
 
-    @property
-    def path(self) -> str:
-        return self.__path__
-
-    @path.setter
-    def path(self, new_path: str) -> None:
-        self.__path__.rename(new_path)
