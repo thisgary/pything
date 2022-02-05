@@ -12,7 +12,7 @@ def eval_file(path: str, default: str = 'None'):
 
 class fdict(dict):
     def __init__(self, mapping: dict = {}, *, 
-            path: str = 'fidct', init: bool = False, **kwargs):
+            path: str = 'fdict', init: bool = False, **kwargs):
         if not init: 
             d = eval_file(path, '{}')
             kwargs.update(d)

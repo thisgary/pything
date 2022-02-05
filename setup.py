@@ -5,7 +5,7 @@ import setuptools
 
 setuptools.setup(
         name='pything',
-        version='0.0.4',
+        version='0.0.5',
         author='thisgary',
         author_email='gary.github@gmail.com',
         description='Something Python.',
