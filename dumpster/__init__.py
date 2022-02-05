@@ -1,3 +1,3 @@
-from .fdict import fdict
-from .urlimp import import_url
+from .fdict import *
+from .urlimp import *
 
