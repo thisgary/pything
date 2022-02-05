@@ -11,10 +11,6 @@ def eval_file(path: str, default: str = 'None'):
 
 
 class fdict(dict):
-    @staticmethod
-    def read(path: str) -> dict:
-        return fdict(eval_file(path), path=path) 
-
     def __init__(self, mapping: dict = {}, *, 
             path: str = 'fidct', init: bool = False, **kwargs):
         if not init: 
