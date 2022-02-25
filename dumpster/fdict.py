@@ -20,6 +20,6 @@ class fdict(dict):
         self.path = path
         self.write()
 
-    def write(self) -> None:
-        Path(self.path).write_text(str(self))
+    def write(self, encoding: str = 'utf-8') -> None:
+        Path(self.path).write_text(str(self), encoding=encoding)
 
