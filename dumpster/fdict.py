@@ -1,10 +1,10 @@
 from pathlib import Path
 
 
-def eval_file(path: str, default: str = 'None'):
+def eval_file(path: str, default: str = 'None', encoding: str = 'utf-8'):
     p = Path(path)
     if p.exists(): 
-        t = p.read_text()
+        t = p.read_text(encoding)
         if len(t) > 0: 
             default = t
     return eval(default)
@@ -21,5 +21,4 @@ class fdict(dict):
         self.write()
 
     def write(self, encoding: str = 'utf-8') -> None:
-        Path(self.path).write_text(str(self), encoding=encoding)
-
+        Path(self.path).write_text(str(self), encoding)
